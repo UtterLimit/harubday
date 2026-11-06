@@ -1,0 +1,1208 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fff2d9">
+<title>はるかへ ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #fffaf0;
+  --paper: #fffdf8;
+  --pink: #f3b8c8;
+  --rose: #cc7890;
+  --honey: #f4c66d;
+  --brown: #795849;
+  --light-brown: #a47b68;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Zen Maru Gothic", sans-serif;
+  color: var(--brown);
+  background:
+    radial-gradient(circle at 15% 12%, #fff3b7, transparent 32%),
+    radial-gradient(circle at 90% 25%, #ffdce6, transparent 38%),
+    radial-gradient(circle at 20% 85%, #ffe8aa, transparent 32%),
+    #fff7ec;
+}
+
+/* Small paper texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .22;
+  background-image:
+    radial-gradient(#dfb98b 0.7px, transparent 0.8px);
+  background-size: 13px 13px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button:focus-visible,
+.envelope:focus-visible {
+  outline: 3px solid #a96e83;
+  outline-offset: 5px;
+}
+
+/* Background ornaments */
+
+.background-decor {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.float {
+  position: absolute;
+  font-size: var(--size);
+  opacity: .58;
+  animation: floatAround var(--speed) ease-in-out infinite alternate;
+}
+
+@keyframes floatAround {
+  from {
+    transform: translateY(0) rotate(-9deg);
+  }
+  to {
+    transform: translateY(-28px) rotate(12deg);
+  }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: min(96%, 1250px);
+  margin: auto;
+}
+
+/* Opening screen */
+
+.intro {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 45px 12px;
+}
+
+.intro-inner {
+  width: 100%;
+  text-align: center;
+}
+
+.intro-title {
+  font-family: "Kiwi Maru", serif;
+  font-weight: 500;
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: 1.5;
+  letter-spacing: .07em;
+  color: #966954;
+  margin: 0 0 30px;
+}
+
+.intro-bow {
+  font-size: 52px;
+  display: block;
+  margin-bottom: 10px;
+  animation: bowMove 3s ease-in-out infinite;
+}
+
+@keyframes bowMove {
+  0%, 100% {transform: rotate(-8deg)}
+  50% {transform: rotate(8deg)}
+}
+
+/* Envelope */
+
+.envelope {
+  width: min(90vw, 610px);
+  aspect-ratio: 1.55;
+  position: relative;
+  margin: 0 auto 44px;
+  cursor: pointer;
+  perspective: 1200px;
+  filter: drop-shadow(0 22px 22px #bd8a9550);
+  transition: transform .3s;
+}
+
+.envelope:hover {
+  transform: translateY(-7px);
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #e8a1b7;
+  border-radius: 18px;
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #f5bfce;
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 0 0 18px 18px;
+}
+
+.envelope-front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ffdae4;
+  clip-path: polygon(0 100%, 50% 44%, 100% 100%);
+}
+
+.envelope-flap {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 62%;
+  z-index: 5;
+  background: #ffdae4;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform .9s ease;
+}
+
+.envelope-seal {
+  position: absolute;
+  z-index: 6;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: #fff1bc;
+  border: 3px solid #e0b56f;
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+  box-shadow: 0 4px 13px #a57b7344;
+  transition: opacity .3s;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope.open .envelope-seal {
+  opacity: 0;
+}
+
+.primary-button {
+  padding: 16px 38px;
+  font-size: 18px;
+  font-weight: 700;
+  background: #d77f98;
+  color: white;
+  border: 0;
+  border-radius: 40px;
+  box-shadow: 0 7px 0 #ab6176;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.primary-button:hover {
+  transform: translateY(-3px);
+}
+
+.primary-button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+/* Birthday album */
+
+.album-view {
+  padding: 38px 0 85px;
+  animation: albumAppear 1s ease both;
+}
+
+@keyframes albumAppear {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.album {
+  position: relative;
+  background: #efbdcb;
+  border-radius: 30px;
+  padding: 16px;
+  box-shadow: 0 22px 55px #ab768149;
+}
+
+.album-inner {
+  position: relative;
+  background: #fff9ee;
+  border-radius: 22px;
+  padding: clamp(20px, 3.5vw, 48px);
+  overflow: hidden;
+}
+
+.album-inner::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border: 2px dashed #e6bf86;
+  border-radius: 17px;
+  pointer-events: none;
+}
+
+/* Header: no decorations overlap text */
+
+.album-header {
+  position: relative;
+  text-align: center;
+  padding: 18px 12px 35px;
+  z-index: 1;
+}
+
+.album-header .small-flowers {
+  font-size: 25px;
+  letter-spacing: 12px;
+  margin-bottom: 12px;
+}
+
+.album-title {
+  font-family: "Kiwi Maru", serif;
+  font-size: clamp(27px, 4vw, 48px);
+  font-weight: 500;
+  line-height: 1.65;
+  letter-spacing: .015em;
+  color: #966a55;
+  margin: 0 auto;
+  max-width: 950px;
+  overflow-wrap: anywhere;
+}
+
+.album-header .underline {
+  display: block;
+  width: min(70%, 260px);
+  height: 8px;
+  border-bottom: 4px solid #f0c77b;
+  border-radius: 50%;
+  margin: 14px auto 0;
+  transform: rotate(-2deg);
+}
+
+/* Two-column page */
+
+.spread {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(20px, 3vw, 38px);
+  position: relative;
+  z-index: 1;
+}
+
+.photo-side {
+  min-width: 0;
+  padding: 20px 8px 20px;
+}
+
+.photo-board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding: 10px 0 24px;
+}
+
+.polaroid {
+  position: relative;
+  width: min(90%, 395px);
+  background: #fffefa;
+  padding: 15px 15px 15px;
+  box-shadow:
+    3px 8px 0 #eee1d4,
+    0 14px 25px #936e5e2d;
+  border: 1px solid #eee5d7;
+  transition: transform .35s;
+}
+
+.polaroid:first-child {
+  transform: rotate(-5deg);
+  margin-right: 12%;
+}
+
+.polaroid:nth-child(2) {
+  transform: rotate(5deg);
+  margin-left: 12%;
+}
+
+.polaroid:first-child:hover {
+  transform: rotate(-2deg) scale(1.04);
+}
+
+.polaroid:nth-child(2):hover {
+  transform: rotate(2deg) scale(1.04);
+}
+
+/* Masking tape */
+.tape {
+  position: absolute;
+  width: 110px;
+  height: 32px;
+  left: 50%;
+  top: -16px;
+  z-index: 3;
+  transform: translateX(-50%) rotate(-4deg);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #f8dbb1aa 0 12px,
+      #fff1d0aa 12px 24px
+    );
+  box-shadow: 1px 2px 3px #987e6240;
+  opacity: .94;
+}
+
+.polaroid:nth-child(2) .tape {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #f5bfcdbb 0 12px,
+      #ffe1e9bb 12px 24px
+    );
+  transform: translateX(-50%) rotate(7deg);
+}
+
+.photo-image {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #f8dfcd;
+}
+
+.photo-emoji {
+  text-align: center;
+  padding-top: 11px;
+  font-size: 27px;
+  letter-spacing: 8px;
+}
+
+.photo-error {
+  padding: 30px 12px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #a66b6b;
+  background: #fff0e8;
+}
+
+.little-doodles {
+  font-family: "Kiwi Maru", serif;
+  font-size: 34px;
+  text-align: center;
+  color: #e9aa8e;
+  letter-spacing: 15px;
+  transform: rotate(-4deg);
+  padding-top: 5px;
+}
+
+/* Letter */
+
+.letter-side {
+  min-width: 0;
+  padding: 15px 0;
+}
+
+.letter-paper {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 39px,
+      #efdfce 40px,
+      transparent 41px
+    ),
+    #fffef9;
+  border: 1px solid #e9d3b6;
+  border-radius: 8px 19px 13px 8px;
+  padding: clamp(25px, 4vw, 48px);
+  box-shadow:
+    5px 6px 0 #f3e7d6,
+    0 15px 30px #a8867040;
+  position: relative;
+  transform: rotate(.5deg);
+}
+
+.letter-paper::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #edbdc9;
+  opacity: .65;
+}
+
+.letter-heading {
+  font-family: "Kiwi Maru", serif;
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 500;
+  margin: 0 0 28px;
+  color: #9c715c;
+}
+
+.letter-text {
+  font-size: clamp(16px, 1.65vw, 19px);
+  line-height: 2.05;
+  letter-spacing: .015em;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.letter-signature {
+  font-family: "Kiwi Maru", serif;
+  margin-top: 25px;
+  text-align: right;
+  font-size: 23px;
+  color: #c47e91;
+}
+
+.letter-end {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 28px;
+  letter-spacing: 12px;
+}
+
+/* Buttons */
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 34px 0 7px;
+}
+
+.surprise-button {
+  background: linear-gradient(135deg, #ed9eb5, #d67897);
+  border: 0;
+  color: white;
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 700;
+  padding: 19px 34px;
+  border-radius: 50px;
+  box-shadow: 0 7px 0 #a85b76;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.surprise-button:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+
+.surprise-button:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.back-button {
+  background: #f9dfaa;
+  border: 0;
+  color: #845c47;
+  font-size: 15px;
+  padding: 16px 25px;
+  border-radius: 50px;
+  box-shadow: 0 6px 0 #d2ac72;
+}
+
+/* Surprise scene */
+
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.surprise-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.surprise-center {
+  text-align: center;
+  animation: surprisePop 1.3s ease both;
+  filter: drop-shadow(0 6px 15px #a04f7444);
+}
+
+.surprise-center .giant-emoji {
+  font-size: clamp(105px, 22vw, 230px);
+  line-height: 1.15;
+  animation: giantBounce .65s ease-in-out infinite alternate;
+}
+
+.surprise-center .surprise-text {
+  font-family: "Kiwi Maru", serif;
+  font-size: clamp(31px, 7vw, 82px);
+  font-weight: 500;
+  color: #cc6d8c;
+  text-shadow:
+    3px 4px 0 #fff,
+    -2px -2px 0 #fff,
+    0 8px 25px #fff;
+  padding: 0 15px;
+}
+
+@keyframes surprisePop {
+  0% {opacity:0;transform:scale(.2) rotate(-15deg)}
+  55% {opacity:1;transform:scale(1.15) rotate(4deg)}
+  80% {transform:scale(.95)}
+  100% {transform:scale(1)}
+}
+
+@keyframes giantBounce {
+  from {transform:translateY(0) rotate(-8deg)}
+  to {transform:translateY(-25px) rotate(8deg)}
+}
+
+.flying-emoji {
+  position: fixed;
+  z-index: 102;
+  pointer-events: none;
+  font-size: var(--size);
+  animation: emojiFly var(--duration) cubic-bezier(.2,.6,.3,1) forwards;
+}
+
+@keyframes emojiFly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 35px) scale(.3) rotate(-25deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(var(--dx), var(--dy))
+      scale(var(--scale))
+      rotate(var(--rotation));
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 850px) {
+  .spread {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .photo-board {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .polaroid {
+    width: min(46%, 330px);
+  }
+
+  .polaroid:first-child,
+  .polaroid:nth-child(2) {
+    margin: 0;
+  }
+
+  .letter-side {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .album {
+    padding: 8px;
+    border-radius: 20px;
+  }
+
+  .album-inner {
+    padding: 22px 14px;
+  }
+
+  .album-inner::before {
+    inset: 7px;
+  }
+
+  .album-header {
+    padding: 20px 4px 22px;
+  }
+
+  .album-title {
+    font-size: clamp(23px, 6vw, 31px);
+  }
+
+  .photo-side {
+    padding: 10px 0;
+  }
+
+  .photo-board {
+    gap: 7px;
+  }
+
+  .polaroid {
+    padding: 7px 7px 8px;
+  }
+
+  .tape {
+    width: 60px;
+    height: 22px;
+    top: -11px;
+  }
+
+  .photo-emoji {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .letter-paper {
+    padding: 25px 20px 28px 31px;
+  }
+
+  .letter-paper::before {
+    left: 17px;
+  }
+
+  .letter-text {
+    font-size: 16px;
+  }
+
+  .envelope-seal {
+    width: 55px;
+    height: 55px;
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float, .intro-bow {
+    animation: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-decor" id="backgroundDecor"></div>
+<canvas id="confettiCanvas"></canvas>
+<div class="surprise-scene" id="surpriseScene" hidden></div>
+
+<main class="page">
+
+  <!-- First screen -->
+  <section class="intro" id="intro">
+    <div class="intro-inner">
+
+      <span class="intro-bow">🎀</span>
+      <h1 class="intro-title">はるかへ</h1>
+
+      <div class="envelope" id="envelope"
+           role="button" tabindex="0"
+           aria-label="お手紙を開く">
+
+        <div class="envelope-back"></div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-front"></div>
+        <div class="envelope-seal">💛</div>
+
+      </div>
+
+      <button class="primary-button" id="openButton">
+        お手紙を開く 💌
+      </button>
+
+    </div>
+  </section>
+
+  <!-- Album screen -->
+  <section class="album-view" id="albumView" hidden>
+
+    <div class="album">
+      <div class="album-inner">
+
+        <header class="album-header">
+          <div class="small-flowers">🌼 ♡ 🍯</div>
+          <h2 class="album-title">
+            だいすきなはるちゃんへ 🎂
+          </h2>
+          <span class="underline"></span>
+        </header>
+
+        <div class="spread">
+
+          <!-- Photo page -->
+          <div class="photo-side">
+
+            <div class="photo-board">
+
+              <div class="polaroid">
+                <div class="tape"></div>
+
+                <img
+                  class="photo-image"
+                  src="./IMG_7486.JPG"
+                  alt="はるかとの思い出の写真1"
+                  onerror="this.hidden=true;this.nextElementSibling.hidden=false"
+                >
+
+                <div class="photo-error" hidden>
+                  IMG_7486.JPG が見つかりません
+                </div>
+
+                <div class="photo-emoji">💗 ✨</div>
+              </div>
+
+              <div class="polaroid">
+                <div class="tape"></div>
+
+                <img
+                  class="photo-image"
+                  src="./IMG_7487.JPG"
+                  alt="はるかとの思い出の写真2"
+                  onerror="this.hidden=true;this.nextElementSibling.hidden=false"
+                >
+
+                <div class="photo-error" hidden>
+                  IMG_7487.JPG が見つかりません
+                </div>
+
+                <div class="photo-emoji">🎀 💛</div>
+              </div>
+
+            </div>
+
+            <div class="little-doodles">
+              ♡ ✿ ♡
+            </div>
+
+          </div>
+
+          <!-- Letter page -->
+          <div class="letter-side">
+
+            <article class="letter-paper">
+
+              <h2 class="letter-heading">
+                はるかへ
+              </h2>
+
+              <div class="letter-text">お誕生日おめでとう！！
+
+ほんとに、いつも笑かしてくれて、気にかけてくれるはるちゃんが大好きだよん。
+
+そんなはるちゃんとずっと一緒のクラスでよかったー。
+
+これからカラオケも遅くまでいられるね。
+
+忙しくてなかなか遊びに行けてないけど、これからもいっぱい思い出刻んでこう！
+
+今年も最高な一年になりますように！
+
+だいすきだぞ！</div>
+
+              <div class="letter-signature">
+                じゅりより ♡
+              </div>
+
+              <div class="letter-end">
+                🌼 💗 🌼
+              </div>
+
+            </article>
+
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button class="surprise-button" id="surpriseButton">
+            🎉 押してみ
+          </button>
+
+          <button class="back-button" id="backButton">
+            💌 もう一度見る
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+"use strict";
+
+const intro = document.getElementById("intro");
+const albumView = document.getElementById("albumView");
+const envelope = document.getElementById("envelope");
+const openButton = document.getElementById("openButton");
+const backButton = document.getElementById("backButton");
+const surpriseButton = document.getElementById("surpriseButton");
+const surpriseScene = document.getElementById("surpriseScene");
+
+let opening = false;
+let surpriseRunning = false;
+let confetti = [];
+let animationId = null;
+let surpriseTimers = [];
+
+const prefersReducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Background decorations */
+
+const backgroundDecor =
+  document.getElementById("backgroundDecor");
+
+const decorations = [
+  "🌼", "✨", "💛", "♡", "🐝", "🎀", "✿", "🍯"
+];
+
+for (let i = 0; i < 29; i++) {
+  const item = document.createElement("span");
+
+  item.className = "float";
+  item.textContent = decorations[i % decorations.length];
+
+  item.style.left = Math.random() * 96 + "%";
+  item.style.top = Math.random() * 96 + "%";
+
+  item.style.setProperty(
+    "--size",
+    (14 + Math.random() * 18) + "px"
+  );
+
+  item.style.setProperty(
+    "--speed",
+    (4 + Math.random() * 5) + "s"
+  );
+
+  item.style.animationDelay =
+    (-Math.random() * 7) + "s";
+
+  backgroundDecor.appendChild(item);
+}
+
+/* Open envelope */
+
+function openCard() {
+  if (opening || !albumView.hidden) return;
+
+  opening = true;
+  envelope.classList.add("open");
+
+  setTimeout(() => {
+    intro.hidden = true;
+    albumView.hidden = false;
+    opening = false;
+
+    window.scrollTo(0, 0);
+    launchConfetti(120);
+
+  }, prefersReducedMotion ? 100 : 950);
+}
+
+openButton.addEventListener("click", openCard);
+envelope.addEventListener("click", openCard);
+
+envelope.addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    openCard();
+  }
+});
+
+backButton.addEventListener("click", () => {
+  albumView.hidden = true;
+  intro.hidden = false;
+  envelope.classList.remove("open");
+  window.scrollTo(0, 0);
+});
+
+/* Confetti canvas */
+
+const canvas = document.getElementById("confettiCanvas");
+const ctx = canvas.getContext("2d");
+
+const colors = [
+  "#f6a6bf",
+  "#ffd66d",
+  "#ffefae",
+  "#c9b3ee",
+  "#a5d7ba",
+  "#f9a98c",
+  "#ffffff",
+  "#e68caa"
+];
+
+function resizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  canvas.width = Math.round(innerWidth * dpr);
+  canvas.height = Math.round(innerHeight * dpr);
+
+  canvas.style.width = innerWidth + "px";
+  canvas.style.height = innerHeight + "px";
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+function createConfetti(amount) {
+  const width = innerWidth;
+  const height = innerHeight;
+
+  for (let i = 0; i < amount; i++) {
+    confetti.push({
+      x: Math.random() * width,
+      y: -30 - Math.random() * height * .8,
+
+      vx: (Math.random() - .5) * 5,
+      vy: 2 + Math.random() * 5,
+
+      size: 5 + Math.random() * 11,
+      rotation: Math.random() * 6.28,
+      spin: (Math.random() - .5) * .2,
+
+      color: colors[Math.floor(Math.random() * colors.length)],
+      shape: Math.random() > .6 ? "circle" : "rectangle"
+    });
+  }
+
+  if (!animationId) animateConfetti();
+}
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+  for (const p of confetti) {
+    p.x += p.vx + Math.sin(p.y / 50) * .6;
+    p.y += p.vy;
+    p.rotation += p.spin;
+
+    ctx.save();
+
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation);
+    ctx.fillStyle = p.color;
+
+    if (p.shape === "circle") {
+      ctx.beginPath();
+      ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.fillRect(
+        -p.size / 2,
+        -p.size / 3,
+        p.size,
+        p.size * .65
+      );
+    }
+
+    ctx.restore();
+  }
+
+  confetti = confetti.filter(p => p.y < innerHeight + 40);
+
+  if (confetti.length > 0) {
+    animationId = requestAnimationFrame(animateConfetti);
+  } else {
+    animationId = null;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+  }
+}
+
+function launchConfetti(amount = 250) {
+  createConfetti(amount);
+}
+
+/* Flying oversized emojis */
+
+function flyingEmojis(amount = 35) {
+  const icons = [
+    "💗", "💖", "💕", "💛",
+    "🎀", "🌸", "🌼", "🎂",
+    "🎉", "✨", "💐", "🥳"
+  ];
+
+  for (let i = 0; i < amount; i++) {
+    const emoji = document.createElement("span");
+
+    emoji.className = "flying-emoji";
+    emoji.textContent =
+      icons[Math.floor(Math.random() * icons.length)];
+
+    emoji.style.left =
+      (10 + Math.random() * 80) + "vw";
+
+    emoji.style.top =
+      (20 + Math.random() * 65) + "vh";
+
+    emoji.style.setProperty(
+      "--size",
+      (35 + Math.random() * 85) + "px"
+    );
+
+    emoji.style.setProperty(
+      "--dx",
+      ((Math.random() - .5) * 650) + "px"
+    );
+
+    emoji.style.setProperty(
+      "--dy",
+      ((Math.random() - .5) * 750) + "px"
+    );
+
+    emoji.style.setProperty(
+      "--scale",
+      (0.7 + Math.random() * 1.3)
+    );
+
+    emoji.style.setProperty(
+      "--rotation",
+      ((Math.random() - .5) * 600) + "deg"
+    );
+
+    emoji.style.setProperty(
+      "--duration",
+      (2.5 + Math.random() * 2) + "s"
+    );
+
+    document.body.appendChild(emoji);
+
+    emoji.addEventListener(
+      "animationend",
+      () => emoji.remove(),
+      { once: true }
+    );
+  }
+}
+
+/* Surprise sequence */
+
+function later(fn, delay) {
+  const timer = setTimeout(fn, delay);
+  surpriseTimers.push(timer);
+}
+
+function runSurprise() {
+  if (surpriseRunning) return;
+  surpriseRunning = true;
+
+  surpriseScene.hidden = false;
+
+  surpriseScene.innerHTML = `
+    <div class="surprise-center">
+      <div class="giant-emoji">🎂💗</div>
+      <div class="surprise-text">
+        はるちゃんおめでとう！！
+      </div>
+    </div>
+  `;
+
+  // First explosion
+  launchConfetti(400);
+  flyingEmojis(45);
+
+  // Second wave
+  later(() => {
+    launchConfetti(300);
+    flyingEmojis(50);
+  }, 850);
+
+  // Third wave
+  later(() => {
+    surpriseScene.innerHTML = `
+      <div class="surprise-center">
+        <div class="giant-emoji">🥳🎀</div>
+        <div class="surprise-text">
+          だいすきだぞ！！
+        </div>
+      </div>
+    `;
+
+    launchConfetti(500);
+    flyingEmojis(65);
+  }, 1900);
+
+  // Fourth wave
+  later(() => {
+    launchConfetti(350);
+    flyingEmojis(40);
+  }, 3000);
+
+  // Reveal the letter again
+  later(() => {
+    surpriseScene.hidden = true;
+    surpriseScene.innerHTML = "";
+    surpriseRunning = false;
+    surpriseTimers = [];
+  }, 4900);
+}
+
+surpriseButton.addEventListener("click", runSurprise);
+</script>
+
+</body>
+</html>
